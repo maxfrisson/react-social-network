@@ -1,0 +1,42 @@
+.dialogs h2 {
+  text-align: center;
+}
+.dialogsContent {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+}
+.dialogsItems {
+  padding: 10px;
+}
+
+.dialogsItems .active {
+  color: gold;
+}
+
+.dialog {
+  padding: 10px;
+}
+
+.dialog a {
+  color: #222;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.dialog a.activeLink {
+  color: #fff;
+}
+
+.messages {
+  padding: 10px;
+}
+
+.message {
+  color: #fff;
+}
+
+textarea {
+  vertical-align: bottom;
+  width: 250px;
+  height: 100px;
+}
