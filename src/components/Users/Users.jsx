@@ -16,7 +16,7 @@ let Users = (props) => {
             <span
               className={props.currentPage === p && styles.selectedPage}
               onClick={(e) => {
-                this.onPageChanged(p);
+                props.onPageChanged(p);
               }}
             >
               {p}
