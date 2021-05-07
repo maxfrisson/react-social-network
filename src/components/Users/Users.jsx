@@ -1,13 +1,14 @@
 import styles from "./users.module.css";
-import userPhoto from "../../assets/images/user.png";
 import { NavLink } from "react-router-dom";
 
 let Users = (props) => {
-  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize) / 100;
+  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize) / 50;
   let pages = [];
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i);
   }
+
+  let defaultAvatar = "https://i.pravatar.cc/100?img=";
 
   return (
     <div className={styles.usersContent}>
@@ -30,9 +31,13 @@ let Users = (props) => {
           <div className={styles.usersItem} key={u.id}>
             <span>
               <div>
-                <NavLink to={"/profile/" + u.id}>
+                <NavLink to={"profile/" + u.id}>
                   <img
-                    src={u.photos.small != null ? u.photos.small : userPhoto}
+                    src={
+                      !u.photos.small
+                        ? `${defaultAvatar}+${Math.floor(Math.random() * 50)}`
+                        : u.photos.small
+                    }
                     className={styles.userPhoto}
                     alt=""
                   />
