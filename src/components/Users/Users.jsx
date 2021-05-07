@@ -9,8 +9,8 @@ let Users = (props) => {
   }
 
   return (
-    <div>
-      <div>
+    <div className={styles.usersContent}>
+      <div className={styles.usersPageList}>
         {pages.map((p) => {
           return (
             <span
@@ -24,8 +24,9 @@ let Users = (props) => {
           );
         })}
       </div>
+      <div className={styles.usersList}>
       {props.users.map((u) => (
-        <div key={u.id}>
+        <div className={styles.usersItem} key={u.id}>
           <span>
             <div>
               <img
@@ -66,6 +67,7 @@ let Users = (props) => {
           </span>
         </div>
       ))}
+      </div>
     </div>
   );
 };

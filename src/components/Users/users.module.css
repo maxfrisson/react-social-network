@@ -1,3 +1,26 @@
+.usersContent {
+  margin: 20px;
+  text-align: center;
+}
+
+.usersPageList span {
+  font-size: 1.6rem;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.usersList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.usersItem {
+  padding: 35px;
+  flex-basis: 20%;
+}
+
 .userPhoto {
   width: 100px;
   height: 100%;
