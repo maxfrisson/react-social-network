@@ -10,7 +10,6 @@ import {
   unfollowAC,
 } from "../../redux/usersReducer";
 import Users from "./Users";
-import preloader from "../../assets/images/preloader.gif";
 import Preloader from "../Preloader/Preloader";
 
 class UsersContainer extends React.Component {
