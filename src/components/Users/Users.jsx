@@ -1,5 +1,6 @@
 import styles from "./users.module.css";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 let Users = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize) - 990;
@@ -35,7 +36,7 @@ let Users = (props) => {
                   <img
                     src={
                       !u.photos.small
-                        ? u.photos.small=`${defaultAvatar}${Math.floor(Math.random() * 50)}`
+                        ? (u.photos.small = `${defaultAvatar}${Math.floor(Math.random() * 50)}`)
                         : u.photos.small
                     }
                     className={styles.userPhoto}
@@ -47,7 +48,18 @@ let Users = (props) => {
                 {u.followed ? (
                   <button
                     onClick={() => {
-                      props.unfollow(u.id);
+                      axios
+                        .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                          withCredentials: true,
+                          headers: {
+                            "API-KEY": "f9be70d7-d36d-49b5-9cfd-7753c9e1ab15"
+                          }
+                        })
+                        .then((response) => {
+                          if (response.data.resultCode === 0) {
+                            props.unfollow(u.id);
+                          }
+                        });
                     }}
                   >
                     Unfollow
@@ -55,7 +67,22 @@ let Users = (props) => {
                 ) : (
                   <button
                     onClick={() => {
-                      props.follow(u.id);
+                      axios
+                        .post(
+                          `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                          {},
+                          {
+                            withCredentials: true,
+                            headers: {
+                              "API-KEY": "f9be70d7-d36d-49b5-9cfd-7753c9e1ab15"
+                            }
+                          }
+                        )
+                        .then((response) => {
+                          if (response.data.resultCode === 0) {
+                            props.follow(u.id);
+                          }
+                        });
                     }}
                   >
                     Follow
