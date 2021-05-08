@@ -7,7 +7,6 @@ const ProfileInfo = (props) => {
   }
 
   let defaultAvatar = "https://i.pravatar.cc/300";
-
   return (
     <div>
       <div>
@@ -19,7 +18,7 @@ const ProfileInfo = (props) => {
       </div>
       <div className={style.description}>
         <img
-          src={!props.profile.photos.large ? defaultAvatar : props.profile.photos.large}
+          src={!props.profile.photos.small ? defaultAvatar : props.profile.photos.small}
           alt=""
         />
         <div>{props.profile.userId}</div>

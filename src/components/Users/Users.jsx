@@ -2,7 +2,7 @@ import styles from "./users.module.css";
 import { NavLink } from "react-router-dom";
 
 let Users = (props) => {
-  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize) / 50;
+  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize) - 990;
   let pages = [];
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i);
@@ -35,7 +35,7 @@ let Users = (props) => {
                   <img
                     src={
                       !u.photos.small
-                        ? `${defaultAvatar}+${Math.floor(Math.random() * 50)}`
+                        ? u.photos.small=`${defaultAvatar}${Math.floor(Math.random() * 50)}`
                         : u.photos.small
                     }
                     className={styles.userPhoto}
