@@ -23,7 +23,12 @@ export const usersAPI = {
   checkMeAuth () {
     return instance.get(`auth/me`)
   },
-  showUserProfile (userId) {
+  userProfile (userId) {
     return instance.get(`profile/${userId}`)
   }
+};
+export const authAPI = {
+  checkMeAuth () {
+    return instance.get(`auth/me`)
+  },
 };

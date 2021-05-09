@@ -61,11 +61,11 @@ export const updateNewPostTextActionCreator = (text) => ({
 
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
 
-export const userProfile = (userId) => {
+export const getUserProfile = (userId) => {
   return (dispatch) => {
 
     
-    usersAPI.showUserProfile(userId).then((response) => {
+    usersAPI.userProfile(userId).then((response) => {
       dispatch(setUserProfile(response.data));
     });
   }
