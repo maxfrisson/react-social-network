@@ -20,9 +20,6 @@ export const usersAPI = {
   userUnfollow(userId) {
     return instance.delete(`follow/${userId}`);
   },
-  checkMeAuth () {
-    return instance.get(`auth/me`)
-  },
   userProfile (userId) {
     return instance.get(`profile/${userId}`)
   }

@@ -1,5 +1,6 @@
 import Preloader from "../../Preloader/Preloader";
 import style from "./ProfileInfo.module.css";
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -18,11 +19,12 @@ const ProfileInfo = (props) => {
         }
         alt=""
       />
+      <ProfileStatus status={"HELLO WORLD!!!"} />
       <div>ID: {props.profile.userId}</div>
       <div>Имя: {props.profile.fullName}</div>
-      <div>Статус: {props.profile.lookingForAJobDescription}</div>
       <div>Контакты: {props.profile.contacts.instagram}</div>
       <div>О себе: {props.profile.aboutMe}</div>
+      <div>Мои навыки: {props.profile.lookingForAJobDescription}</div>
     </div>
   );
 };
