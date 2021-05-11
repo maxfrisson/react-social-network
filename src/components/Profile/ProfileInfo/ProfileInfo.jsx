@@ -1,6 +1,6 @@
 import Preloader from "../../Preloader/Preloader";
 import style from "./ProfileInfo.module.css";
-import ProfileStatus from './ProfileStatus';
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -19,7 +19,7 @@ const ProfileInfo = (props) => {
         }
         alt=""
       />
-      <ProfileStatus status={"HELLO WORLD!!!"} />
+      <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
       <div>ID: {props.profile.userId}</div>
       <div>Имя: {props.profile.fullName}</div>
       <div>Контакты: {props.profile.contacts.instagram}</div>

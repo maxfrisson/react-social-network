@@ -20,12 +20,20 @@ export const usersAPI = {
   userUnfollow(userId) {
     return instance.delete(`follow/${userId}`);
   },
-  userProfile (userId) {
-    return instance.get(`profile/${userId}`)
-  }
+};
+export const profileAPI = {
+  userProfile(userId) {
+    return instance.get(`profile/${userId}`);
+  },
+  getStatus(userId) {
+    return instance.get(`profile/status/${userId}`);
+  },
+  updateStatus(status) {
+    return instance.put(`profile/status`, { status: status });
+  },
 };
 export const authAPI = {
-  checkMeAuth () {
-    return instance.get(`auth/me`)
+  checkMeAuth() {
+    return instance.get(`auth/me`);
   },
 };
