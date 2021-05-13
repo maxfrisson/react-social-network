@@ -13,11 +13,18 @@ const LoginForm = (props) => {
         <Field name={"email"} placeholder={"Email"} component={Input} validate={[required]} />
       </div>
       <div>
-        <Field name={"password"} placeholder={"Password"} type="password" component={Input} validate={[required]} />
+        <Field
+          name={"password"}
+          placeholder={"Password"}
+          type="password"
+          component={Input}
+          validate={[required]}
+        />
       </div>
       <div>
         <Field name={"rememberMe"} type="checkbox" component={Input} /> remember me
       </div>
+      {props.error && <div className={style.formSummaryError}>{props.error}</div>}
       <div>
         <button>Login</button>
       </div>
@@ -32,8 +39,8 @@ const Login = (props) => {
     props.login(formData.email, formData.password, formData.rememberMe);
   };
 
-  if(props.isAuth) {
-    return <Redirect to={"/profile"} />
+  if (props.isAuth) {
+    return <Redirect to={"/profile"} />;
   }
 
   return (
@@ -46,6 +53,6 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
-})
+});
 
-export default connect(mapStateToProps, {login}) (Login);
+export default connect(mapStateToProps, { login })(Login);
