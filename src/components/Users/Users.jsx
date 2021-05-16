@@ -7,16 +7,17 @@ let Users = (props) => {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i);
   }
-
+  
   let defaultAvatar = "https://i.pravatar.cc/100?img=";
-
+  
   return (
+
     <div className={styles.usersContent}>
       <div className={styles.usersPageList}>
         {pages.map((p) => {
           return (
             <span
-              className={props.currentPage === p && styles.selectedPage}
+              className={props.currentPage === p ? styles.selectedPage : styles.page}
               onClick={(e) => {
                 props.onPageChanged(p);
               }}
