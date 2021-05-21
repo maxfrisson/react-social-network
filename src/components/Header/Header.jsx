@@ -1,12 +1,13 @@
 import { NavLink } from "react-router-dom";
 import style from "./Header.module.css";
+import logo from '../../assets/images/logo.png';
 
 const Header = (props) => {
   return (
     <header className={style.header}>
       <img
         className={style.image}
-        src="https://cdn.logo.com/hotlink-ok/logo-social-sq.png"
+        src={logo}
         alt=""
       />
       <div className={style.loginBlock}>
