@@ -6,9 +6,9 @@ import style from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
 const MyPosts = React.memo((props) => {
-  let postsElements = props.posts.map((post) => (
-    <Post message={post.message} key={post.id} like={post.likesCount} />
-  ));
+  let postsElements = [...props.posts]
+    .reverse()
+    .map((post) => <Post message={post.message} key={post.id} like={post.likesCount} />);
 
   let onAddPost = (values) => {
     props.addPost(values.newPostText);
