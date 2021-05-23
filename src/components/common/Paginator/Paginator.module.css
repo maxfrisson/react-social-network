@@ -1,0 +1,11 @@
+.page {
+  font-size: 1.6rem;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.selectedPage {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 12px;
+}

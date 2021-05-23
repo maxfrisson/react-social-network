@@ -1,19 +1,25 @@
-import styles from "./users.module.css";
+import styles from "./Users.module.css";
 import { NavLink } from "react-router-dom";
+import Paginator from "../common/Paginator/Paginator";
 
-let Users = (props) => {
-  let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize) - 990;
-  let pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
-  
+let Users = ({ currentPage, totalUsersCount, pageSize, onPageChanged, ...props }) => {
+  // let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize) - 990;
+  // let pages = [];
+  // for (let i = 1; i <= pagesCount; i++) {
+  //   pages.push(i);
+  // }
+
   let defaultAvatar = "https://i.pravatar.cc/100?img=";
-  
   return (
-
     <div className={styles.usersContent}>
-      <div className={styles.usersPageList}>
+      <Paginator
+        currentPage={currentPage}
+        totalUsersCount={totalUsersCount}
+        onPageChanged={onPageChanged}
+        pageSize={pageSize}
+      />
+
+      {/* <div className={styles.usersPageList}>
         {pages.map((p) => {
           return (
             <span
@@ -26,7 +32,7 @@ let Users = (props) => {
             </span>
           );
         })}
-      </div>
+      </div> */}
       <div className={styles.usersList}>
         {props.users.map((u) => (
           <div className={styles.usersItem} key={u.id}>
@@ -80,7 +86,6 @@ let Users = (props) => {
         ))}
       </div>
     </div>
-  );
+);
 };
-
 export default Users;

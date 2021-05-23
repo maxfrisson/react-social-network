@@ -1,4 +1,3 @@
-import { Field } from "redux-form";
 import styles from "./FormsControls.module.css";
 
 const FormControl = (props) => {

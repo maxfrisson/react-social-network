@@ -4,6 +4,7 @@ import {
   follow,
   requestUsers,
   setCurrentPage,
+  setTotalUsersCount,
   toggleFollowingProgress,
   toggleIsFetching,
   unfollow,
@@ -44,7 +45,6 @@ class UsersContainer extends React.Component {
     // });
   };
   render() {
-
     return (
       <>
         {this.props.isFetching ? <Preloader /> : null}
@@ -58,7 +58,7 @@ class UsersContainer extends React.Component {
           unfollow={this.props.unfollow}
           toggleFollowingProgress={this.props.toggleFollowingProgress}
           followingInProgress={this.props.followingInProgress}
-          />
+        />
       </>
     );
   }
@@ -114,6 +114,7 @@ export default compose(
     follow,
     unfollow,
     setCurrentPage,
+    setTotalUsersCount,
     toggleIsFetching,
     toggleFollowingProgress,
     requestUsers,
