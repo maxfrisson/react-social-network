@@ -14,6 +14,9 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 import { initializeApp } from "./redux/appReducer";
+import store from "./redux/redux-store";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
 class App extends React.Component {
   componentDidMount() {
@@ -21,8 +24,9 @@ class App extends React.Component {
   }
 
   render() {
-    if (!this.props.initialized){
-    return <Preloader/>}
+    if (!this.props.initialized) {
+      return <Preloader />;
+    }
     return (
       <div className="app-wrapper">
         <HeaderContainer />
@@ -43,6 +47,20 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   initialized: state.app.initialized,
-})
+});
 
-export default compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);
+let AppContainer = compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);
+
+let SocialNetworkApp = (props) => {
+  return (
+    <BrowserRouter>
+      <React.StrictMode>
+        <Provider store={store}>
+          <AppContainer />
+        </Provider>
+      </React.StrictMode>
+    </BrowserRouter>
+  );
+};
+
+export default SocialNetworkApp;

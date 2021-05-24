@@ -13,7 +13,7 @@ let Users = ({ currentPage, totalUsersCount, pageSize, onPageChanged, users, ...
     <div className={styles.usersContent}>
       <Paginator
         currentPage={currentPage}
-        totalUsersCount={totalUsersCount}
+        totalItemsCount={totalUsersCount}
         onPageChanged={onPageChanged}
         pageSize={pageSize}
       />

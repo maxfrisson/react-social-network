@@ -2,8 +2,8 @@ import Preloader from "../../common/Preloader/Preloader";
 import style from "./ProfileInfo.module.css";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-const ProfileInfo = (props) => {
-  if (!props.profile) {
+const ProfileInfo = ({ profile, status, updateStatus }) => {
+  if (!profile) {
     return <Preloader />;
   }
 
@@ -12,19 +12,15 @@ const ProfileInfo = (props) => {
     <div className={style.description}>
       <img
         className={style.userPhoto}
-        src={
-          props.profile.photos.large
-            ? props.profile.photos.large
-            : (props.profile.photos.large = defaultAvatar)
-        }
+        src={profile.photos.large ? profile.photos.large : (profile.photos.large = defaultAvatar)}
         alt=""
       />
-      <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} />
-      <div>ID: {props.profile.userId}</div>
-      <div>Имя: {props.profile.fullName}</div>
-      <div>Контакты: {props.profile.contacts.instagram}</div>
-      <div>О себе: {props.profile.aboutMe}</div>
-      <div>Мои навыки: {props.profile.lookingForAJobDescription}</div>
+      <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
+      <div>ID: {profile.userId}</div>
+      <div>Имя: {profile.fullName}</div>
+      <div>Контакты: {profile.contacts.instagram}</div>
+      <div>О себе: {profile.aboutMe}</div>
+      <div>Мои навыки: {profile.lookingForAJobDescription}</div>
     </div>
   );
 };

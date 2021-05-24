@@ -1,11 +1,11 @@
-.page {
-  font-size: 1.6rem;
+.pageNumber {
+  font-size: 1.3rem;
   margin: 10px;
   cursor: pointer;
 }
 
 .selectedPage {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: bold;
   margin: 12px;
 }
