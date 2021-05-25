@@ -4,19 +4,23 @@ import { Route, withRouter } from "react-router";
 import { compose } from "redux";
 import "./App.css";
 import Preloader from "./components/common/Preloader/Preloader";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+// import ProfileContainer from "./components/Profile/ProfileContainer";
+// import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginContainer from "./components/Login/LoginContainer";
 import Music from "./components/Music/Music";
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 import { initializeApp } from "./redux/appReducer";
 import store from "./redux/redux-store";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import { withSuspense } from "./hoc/withSuspense";
+
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
 
 class App extends React.Component {
   componentDidMount() {
@@ -32,8 +36,8 @@ class App extends React.Component {
         <HeaderContainer />
         <Navbar />
         <div className="app-wrapper-content">
-          <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-          <Route path="/dialogs" render={() => <DialogsContainer />} />
+          <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)} />
+          <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
           <Route path="/users" render={() => <UsersContainer />} />
           <Route path="/login" render={() => <LoginContainer />} />
           <Route path="/news" render={() => <News />} />
@@ -53,13 +57,13 @@ let AppContainer = compose(withRouter, connect(mapStateToProps, { initializeApp 
 
 let SocialNetworkApp = (props) => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <React.StrictMode>
         <Provider store={store}>
           <AppContainer />
         </Provider>
       </React.StrictMode>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

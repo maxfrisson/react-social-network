@@ -2,12 +2,20 @@ import Preloader from "../../common/Preloader/Preloader";
 import style from "./ProfileInfo.module.css";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-const ProfileInfo = ({ profile, status, updateStatus }) => {
+const ProfileInfo = ({ profile, status, updateStatus, isOwner, saveAvatar }) => {
   if (!profile) {
     return <Preloader />;
   }
 
   let defaultAvatar = "https://i.pravatar.cc/300";
+
+  const onNewAvatarSelected = (e) => {
+    if (e.target.files.length) {
+      saveAvatar(e.target.files[[0]])
+    }
+  }
+
+
   return (
     <div className={style.description}>
       <img
@@ -15,6 +23,7 @@ const ProfileInfo = ({ profile, status, updateStatus }) => {
         src={profile.photos.large ? profile.photos.large : (profile.photos.large = defaultAvatar)}
         alt=""
       />
+      {isOwner && <input type={"file"} onChange={onNewAvatarSelected} />}
       <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
       <div>ID: {profile.userId}</div>
       <div>Имя: {profile.fullName}</div>
