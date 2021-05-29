@@ -19,3 +19,27 @@
   height: 300px;
   border-radius: 50px;
 }
+
+.addAvatar {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.addAvatar input {
+  margin-left: 45px;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+.contact {
+  padding-left: 10px;
+}
+
+.formSummaryError {
+  border: red 2px solid;
+  padding: 5px;
+  color: red;
+}
