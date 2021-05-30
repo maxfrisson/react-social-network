@@ -1,13 +1,20 @@
 import styles from "./Users.module.css";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
+import { UserType } from "../../types/types";
 
-let Users = ({ currentPage, totalUsersCount, pageSize, onPageChanged, users, ...props }) => {
-  // let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize) - 990;
-  // let pages = [];
-  // for (let i = 1; i <= pagesCount; i++) {
-  //   pages.push(i);
-  // }
+type PropsType = {
+  currentPage: number, 
+  totalUsersCount: number,
+  pageSize: number, 
+  onPageChanged: (pageNumber: number) => void,
+  users: Array<UserType>
+  followingInProgress: Array<number>,
+  unfollow: () => void,
+  follow: () => void
+}
+
+let Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize, onPageChanged, users, ...props }) => {
 
   return (
     <div className={styles.usersContent}>

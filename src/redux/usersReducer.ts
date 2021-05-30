@@ -127,7 +127,7 @@ export const requestUsers = (page: number, pageSize: number) => async (dispatch:
   dispatch(setTotalUsersCount(data.totalCount));
 };
 
-const followUnfollowFlow = async (dispatch: any, userId: any, apiMethod: any, actionCreator: any) => {
+const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any, actionCreator: any) => {
   dispatch(toggleFollowingProgress(true, userId));
   let response = await apiMethod(userId);
   if (response.data.resultCode === 0) {
@@ -137,11 +137,11 @@ const followUnfollowFlow = async (dispatch: any, userId: any, apiMethod: any, ac
 };
 
 export const follow = (userId: number) => async (dispatch: any) => {
-  // followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followSuccess);
+  followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followSuccess);
 };
 
 export const unfollow = (userId: number) => async (dispatch: any) => {
-  // followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowSuccess);
+  followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowSuccess);
 };
 
 export default usersReducer;
