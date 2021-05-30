@@ -9,8 +9,8 @@ import style from "./Login.module.css";
 const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
   return (
     <form onSubmit={handleSubmit}>
-      {createField("Email", "email", [required], Input)}
-      {createField("Password", "password", [required], Input, { type: "password" })}
+      {createField("Email", "email", [required], Input)}:string
+      {createField("Password", "password", [required], Input, { type: "password" })}:string | number
       {createField(null, "rememberMe", [], Input, { type: "checkbox" }, "remember me")}
 
       {captchaUrl && <img src={captchaUrl} alt="captcha" />}
