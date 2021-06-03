@@ -1,22 +1,21 @@
-import React from "react";
+import style from './Diaalogs.module.css'
 import { Redirect } from "react-router";
 import { Field, reduxForm } from "redux-form";
 import { maxLengthCreator, required } from "../../utils/validators/validators";
 import { Textarea } from "../common/FormsControls/FormsControls";
-import style from "./Dialogs.module.css";
 import DialogItem from "./DialogsItem/DialogItem";
 import Message from "./Message/Message";
 
-const Dialogs = (props) => {
-  let dialogsElements = props.dialogsPage.dialogs.map((dialog) => (
+const Dialogs = (props: any) => {
+  let dialogsElements = props.dialogsPage.dialogs.map((dialog: any) => (
     <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />
   ));
 
-  let messagesElements = props.dialogsPage.messages.map((message) => (
+  let messagesElements = props.dialogsPage.messages.map((message: any) => (
     <Message message={message.message} key={message.id} />
   ));
 
-  let addNewMessage = (value) => {
+  let addNewMessage = (value: any) => {
     props.addMessage(value.newMessageBody);
   }
 
@@ -40,7 +39,7 @@ const Dialogs = (props) => {
 
 const maxLength30 = maxLengthCreator(30);
 
-const AddMessageForm = (props) => {
+const AddMessageForm = (props: any) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
