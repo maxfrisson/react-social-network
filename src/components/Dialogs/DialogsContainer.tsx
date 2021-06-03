@@ -4,14 +4,15 @@ import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { AddMessageActionCreator } from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   return {
-    dialogsPage: state.dialogsPage,
+    dialogs: state.dialogsPage.dialogs,
+    messages: state.dialogsPage.messages,
   };
 };
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    addMessage: (newMessageBody) => {
+    addMessage: (newMessageBody: string) => {
       dispatch(AddMessageActionCreator(newMessageBody));
     },
   };

@@ -5,21 +5,30 @@ import { maxLengthCreator, required } from "../../utils/validators/validators";
 import { Textarea } from "../common/FormsControls/FormsControls";
 import DialogItem from "./DialogsItem/DialogItem";
 import Message from "./Message/Message";
+import { DialogType, MessageType } from '../../types/types';
 
-const Dialogs = (props: any) => {
-  let dialogsElements = props.dialogsPage.dialogs.map((dialog: any) => (
+type PropsType = {
+  dialogs: Array<DialogType>,
+  messages: Array<MessageType>,
+  isAuth: boolean,
+
+  addMessage: (value: any) => void
+}
+
+const Dialogs: React.FC<PropsType> = ({dialogs, messages, addMessage, isAuth}) => {
+  let dialogsElements = dialogs.map((dialog: any) => (
     <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />
   ));
 
-  let messagesElements = props.dialogsPage.messages.map((message: any) => (
+  let messagesElements = messages.map((message: any) => (
     <Message message={message.message} key={message.id} />
   ));
 
   let addNewMessage = (value: any) => {
-    props.addMessage(value.newMessageBody);
+    addMessage(value.newMessageBody);
   }
 
-  if (!props.isAuth) return <Redirect to="/login" />;
+  if (!isAuth) return <Redirect to="/login" />;
 
   return (
     <div className={style.dialogs}>

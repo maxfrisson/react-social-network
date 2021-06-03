@@ -1,7 +1,15 @@
-import styles from "./Users.module.css";
 import { NavLink } from "react-router-dom";
+import { UserType } from "../../types/types";
+import styles from "./Users.module.css";
 
-let User = ({user, followingInProgress, follow, unfollow}) => {
+type PropsType = {
+  user: UserType,
+  followingInProgress: Array<number>,
+  unfollow: (arg0: number) => void,
+  follow: (arg0: number) => void
+}
+
+let User: React.FC<PropsType> = ({user, followingInProgress, follow, unfollow}) => {
   let defaultAvatar = "https://i.pravatar.cc/100?img=";
   return (
     <div className={styles.usersItem}>

@@ -1,15 +1,7 @@
+import { DialogType, MessageType } from "../types/types";
+
 const ADD_MESSAGE = "ADD_MESSAGE";
 // const UPDATE_NEW_MESSAGE_TEXT = "UPDATE_NEW_MESSAGE_TEXT";
-
-type DialogType = {
-  id: number,
-  name: string
-}
-
-type MessageType = {
-  id: number,
-  message: string
-}
 
 let initialState = {
   dialogs: [
