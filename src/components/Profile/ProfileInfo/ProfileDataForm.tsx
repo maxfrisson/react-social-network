@@ -1,9 +1,16 @@
 import style from "./ProfileInfo.module.css";
-
+// import { ProfileType } from "../../../types/types"
 import { reduxForm } from "redux-form";
 import { createField, Input, Textarea } from "../../common/FormsControls/FormsControls";
 
-const ProfileDataForm = ({ handleSubmit,profile, error }) => {
+// type ProfileDataFormPropsType = {
+//   handleSubmit: any,
+//   profile: ProfileType,
+//   error: string,
+// }
+
+const ProfileDataForm = ({ handleSubmit, profile, error }: any) => {
+  debugger
   return (
     <form onSubmit={handleSubmit} >
       <div>
