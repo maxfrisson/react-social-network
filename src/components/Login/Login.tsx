@@ -2,15 +2,23 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import { reduxForm } from "redux-form";
 import { login } from "../../redux/authReducer";
+import { AppStateType } from "../../redux/redux-store";
 import { required } from "../../utils/validators/validators";
 import { createField, Input } from "../common/FormsControls/FormsControls";
 import style from "./Login.module.css";
 
-const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
+type PropsType = {
+  handleSubmit: any,
+  error: string,
+  captchaUrl?: string
+}
+
+
+const LoginForm: React.FC<PropsType> = ({ handleSubmit, error, captchaUrl }) => {
   return (
     <form onSubmit={handleSubmit}>
-      {createField("Email", "email", [required], Input)}:string
-      {createField("Password", "password", [required], Input, { type: "password" })}:string | number
+      {createField("Email", "email", [required], Input)}
+      {createField("Password", "password", [required], Input, { type: "password" })}
       {createField(null, "rememberMe", [], Input, { type: "checkbox" }, "remember me")}
 
       {captchaUrl && <img src={captchaUrl} alt="captcha" />}
@@ -26,8 +34,13 @@ const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
 
 const LoginReduxForm = reduxForm({ form: "login" })(LoginForm);
 
-const Login = (props) => {
-  const onSubmit = (formData) => {
+type LoginPropsType = {
+  isAuth: boolean,
+  login: any
+}
+
+const Login: React.FC<LoginPropsType> = (props) => {
+  const onSubmit = (formData: any) => {
     props.login(formData.email, formData.password, formData.rememberMe, formData.captcha);
   };
 
@@ -38,12 +51,12 @@ const Login = (props) => {
   return (
     <div className={style.loginContent}>
       <h1>LOGIN</h1>
-      <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+      <LoginReduxForm onSubmit={onSubmit}/>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   captchaUrl: state.auth.captchaUrl,
   isAuth: state.auth.isAuth,
 });

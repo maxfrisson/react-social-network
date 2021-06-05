@@ -136,12 +136,12 @@ const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any,
   dispatch(toggleFollowingProgress(false, userId));
 };
 
-export const follow = (userId: number) => async (dispatch: any) => {
-  followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), followSuccess);
+export const follow = (userId: number) => async (dispatch: ()=> void) => {
+  followUnfollowFlow(dispatch, userId, usersAPI.userFollow.bind(usersAPI), followSuccess);
 };
 
-export const unfollow = (userId: number) => async (dispatch: any) => {
-  followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), unfollowSuccess);
+export const unfollow = (userId: number) => async (dispatch: ()=> void) => {
+  followUnfollowFlow(dispatch, userId, usersAPI.userUnfollow.bind(usersAPI), unfollowSuccess);
 };
 
 export default usersReducer;

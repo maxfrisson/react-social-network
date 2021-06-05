@@ -1,22 +1,28 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
+import { PostType } from "../../../types/types";
 import { maxLengthCreator, required } from "../../../utils/validators/validators";
 import { Textarea } from "../../common/FormsControls/FormsControls";
 import style from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
-const MyPosts = React.memo((props) => {
+type MyPostsPropsType = {
+  posts: Array<PostType>,
+  addPost: (values: any) => void,
+}
+
+const MyPosts: React.FC<MyPostsPropsType> = React.memo((props) => {
   let postsElements = [...props.posts]
     .reverse()
     .map((post) => <Post message={post.message} key={post.id} like={post.likesCount} />);
 
-  let onAddPost = (values) => {
+  let onAddPost = (values: any) => {
     props.addPost(values.newPostText);
   };
   return (
     <div className={style.postsBlock}>
       <h3>My Posts</h3>
-      <AddNewPostForm onSubmit={onAddPost} />
+      <AddNewPostFormRedux onSubmit={onAddPost} />
       <div className={style.posts}>{postsElements}</div>
     </div>
   );
@@ -24,7 +30,7 @@ const MyPosts = React.memo((props) => {
 
 const maxLength10 = maxLengthCreator(10);
 
-let AddNewPostForm = (props) => {
+let AddNewPostForm = (props: any) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
@@ -42,6 +48,6 @@ let AddNewPostForm = (props) => {
   );
 };
 
-AddNewPostForm = reduxForm({ form: "ProfileAddNewPostForm" })(AddNewPostForm);
+const AddNewPostFormRedux = reduxForm({ form: "ProfileAddNewPostForm" })(AddNewPostForm);
 
 export default MyPosts;

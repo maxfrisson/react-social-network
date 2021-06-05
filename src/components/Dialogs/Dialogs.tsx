@@ -1,9 +1,9 @@
-import style from './Diaalogs.module.css'
+import style from './Dialogs.module.css'
 import { Redirect } from "react-router";
 import { Field, reduxForm } from "redux-form";
 import { maxLengthCreator, required } from "../../utils/validators/validators";
 import { Textarea } from "../common/FormsControls/FormsControls";
-import DialogItem from "./DialogsItem/DialogItem";
+import DialogsItem from "./DialogsItem/DialogsItem";
 import Message from "./Message/Message";
 import { DialogType, MessageType } from '../../types/types';
 
@@ -17,7 +17,7 @@ type PropsType = {
 
 const Dialogs: React.FC<PropsType> = ({dialogs, messages, addMessage, isAuth}) => {
   let dialogsElements = dialogs.map((dialog: any) => (
-    <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />
+    <DialogsItem name={dialog.name} key={dialog.id} id={dialog.id} />
   ));
 
   let messagesElements = messages.map((message: any) => (

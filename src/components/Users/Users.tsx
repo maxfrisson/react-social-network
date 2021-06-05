@@ -4,14 +4,14 @@ import User from "./User";
 import { UserType } from "../../types/types";
 
 type PropsType = {
-  currentPage: number, 
   totalUsersCount: number,
   pageSize: number, 
+  currentPage: number, 
   onPageChanged: (pageNumber: number) => void,
-  users: Array<UserType>
+  users: Array<UserType>,
   followingInProgress: Array<number>,
-  unfollow: () => void,
-  follow: () => void
+  unfollow: (userId: number) => void,
+  follow: (userId: number) => void
 }
 
 let Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize, onPageChanged, users, ...props }) => {
