@@ -1,18 +1,8 @@
 import { Dispatch } from "redux";
-import { ThunkAction } from "redux-thunk";
 import { usersAPI } from "../api/usersAPI";
 import { UserType } from "../types/types";
 import { updateObjectInArray } from "../utils/validators/objectHelpers";
-import { AppStateType, InfernActionsTypes } from "./redux-store";
-
-// const FOLLOW = "FOLLOW";
-// const UNFOLLOW = "UNFOLLOW";
-// const SET_USERS = "SET_USERS";
-// const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-// const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
-// const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
-// const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
-
+import { BasicThunkType, InferActionsTypes } from "./redux-store";
 
 let initialState = {
   users: [] as Array<UserType>,
@@ -23,7 +13,6 @@ let initialState = {
   followingInProgress: [] as Array<number>, //array of users ids
 };
 
-export type initialStateType = typeof initialState;
 
 const usersReducer = (state = initialState, action: ActionsTypes):initialStateType => {
   switch (action.type) {
@@ -67,8 +56,6 @@ const usersReducer = (state = initialState, action: ActionsTypes):initialStateTy
   }
 };
 
-type ActionsTypes = InfernActionsTypes<typeof actions>;
-
 export const actions = {
   followSuccess: (userId: number) => ({ type: "FOLLOW", userId } as const),
   unfollowSuccess: (userId: number) => ({ type: "UNFOLLOW", userId } as const),
@@ -88,14 +75,6 @@ export const actions = {
     userId,
   } as const),
 }
-
-
-
-
-// type GetStateType =  () => AppStateType;
-type DispatchType = Dispatch<ActionsTypes>;
-
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>;
 
 export const requestUsers = (page: number, pageSize: number): ThunkType => async (dispatch, getState) => {
   dispatch(actions.toggleIsFetching(true));
@@ -124,3 +103,8 @@ export const unfollow = (userId: number): ThunkType => async (dispatch) => {
 };
 
 export default usersReducer;
+
+export type initialStateType = typeof initialState;
+type ActionsTypes = InferActionsTypes<typeof actions>;
+type DispatchType = Dispatch<ActionsTypes>;
+type ThunkType = BasicThunkType<ActionsTypes>;

@@ -15,7 +15,7 @@ export const profileAPI = {
   updateStatus(status: string) {
     return instance.put<ResponseType>(`profile/status`, { status: status }).then(response => response.data);
   },
-  saveAvatar(photoFile: any) {
+  saveAvatar(photoFile: File) {
     const formData = new FormData();
     formData.append("image", photoFile);
 

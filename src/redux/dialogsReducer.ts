@@ -1,7 +1,5 @@
 import { DialogType, MessageType } from "../types/types";
-
-const ADD_MESSAGE = "ADD_MESSAGE";
-// const UPDATE_NEW_MESSAGE_TEXT = "UPDATE_NEW_MESSAGE_TEXT";
+import { InferActionsTypes } from "./redux-store";
 
 let initialState = {
   dialogs: [
@@ -22,11 +20,11 @@ let initialState = {
   ] as Array<MessageType>,
 };
 
-export type InitialStateType = typeof initialState;
 
-const dialogsReducer = (state = initialState, action: any):InitialStateType => {
+
+const dialogsReducer = (state = initialState, action: ActionsType):InitialStateType => {
   switch (action.type) {
-    case ADD_MESSAGE:
+    case "RSN/DIALOGS/ADD_MESSAGE":
       let message = action.newMessageBody;
       let idMessageGenerate = state.messages.length + 1;
       return{
@@ -40,28 +38,16 @@ const dialogsReducer = (state = initialState, action: any):InitialStateType => {
         ],
       };
 
-    // case UPDATE_NEW_MESSAGE_TEXT: {
-    //   return{
-    //     ...state,
-    //     newMessageBody: action.newMessage,
-    //   };
-    // }
-
     default:
       return state;
   }
 };
 
-type AddMessageActionCreatorActionType = {
-  type: typeof ADD_MESSAGE,
-  newMessageBody: string
-}
-
-export const AddMessageActionCreator = (newMessageBody: string):AddMessageActionCreatorActionType => ({ type: ADD_MESSAGE, newMessageBody });
-
-// export const UpdateNewMessageTextActionCreator = (text) => ({
-//   type: UPDATE_NEW_MESSAGE_TEXT,
-//   newMessage: text,
-// });
+export const actions = {
+  AddMessage: (newMessageBody: string) => ({ type: "RSN/DIALOGS/ADD_MESSAGE", newMessageBody } as const)
+};
 
 export default dialogsReducer;
+
+export type InitialStateType = typeof initialState;
+type ActionsType = InferActionsTypes<typeof actions>

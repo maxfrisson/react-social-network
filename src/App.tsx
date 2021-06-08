@@ -12,7 +12,7 @@ import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 import { initializeApp } from "./redux/appReducer";
-import store from "./redux/redux-store";
+import store, { AppStateType } from "./redux/redux-store";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { withSuspense } from "./hoc/withSuspense";
@@ -20,7 +20,15 @@ import { withSuspense } from "./hoc/withSuspense";
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
 
-class App extends React.Component {
+type MapPropsType = ReturnType<typeof mapStateToProps>;
+type DispatchPropsType = {
+  initializeApp: () => void;
+};
+
+const SuspendedProfile = withSuspense(ProfileContainer);
+const SuspendedDialogs = withSuspense(DialogsContainer);
+
+class App extends React.Component<MapPropsType & DispatchPropsType> {
   componentDidMount() {
     this.props.initializeApp();
   }
@@ -36,8 +44,8 @@ class App extends React.Component {
         <div className="app-wrapper-content">
           <Switch>
             <Route exact path="/react-social-network" render={() => <Redirect to="/profile" />} />
-            <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)} />
-            <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
+            <Route path="/profile/:userId?" render={() => <SuspendedProfile />} />
+            <Route path="/dialogs" render={() => <SuspendedDialogs />} />
             <Route path="/users" render={() => <UsersContainer pageTitle={"Пользователи"} />} />
             <Route path="/login" render={() => <LoginContainer />} />
             <Route path="/news" render={() => <News />} />
@@ -51,13 +59,16 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized,
 });
 
-let AppContainer = compose(withRouter, connect(mapStateToProps, { initializeApp }))(App);
+let AppContainer = compose<React.ComponentType>(
+  withRouter,
+  connect(mapStateToProps, { initializeApp })
+)(App);
 
-let SocialNetworkApp = (props) => {
+let SocialNetworkApp: React.FC = () => {
   return (
     <BrowserRouter>
       <React.StrictMode>
