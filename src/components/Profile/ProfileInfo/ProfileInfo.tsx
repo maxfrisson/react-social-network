@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { ProfileType } from "../../../types/types";
+import React, { ChangeEvent, useState } from "react";
+import { ContactsType, ProfileType } from "../../../types/types";
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileDataFormReduxForm from "./ProfileDataForm";
 import style from "./ProfileInfo.module.css";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
-type ProfileInfoPropsType = {
+type PropsType = {
   profile: ProfileType,
   status: string, 
-  updateStatus: () => void,
+  updateStatus: (status: string) => void,
   isOwner: boolean, 
-  saveAvatar: any, 
-  saveProfile: (formData: any) => Promise<void>
+  saveAvatar: (file: File) => void, 
+  saveProfile: (profile: ProfileType) => Promise<any>
 }
 
-const ProfileInfo: React.FC<ProfileInfoPropsType> = ({ profile, status, updateStatus, isOwner, saveAvatar, saveProfile }) => {
+const ProfileInfo: React.FC<PropsType> = ({ profile, status, updateStatus, isOwner, saveAvatar, saveProfile }) => {
   const [editMode, setEditMode] = useState(false);
 
   if (!profile) {
@@ -23,14 +23,13 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({ profile, status, updateSt
 
   let defaultAvatar = "https://i.pravatar.cc/300";
 
-  const onNewAvatarSelected = (e: any) => {
-    if (e.target.files.length) {
-      //@ts-ignore
-      saveAvatar(e.target.files[[0]]);
+  const onNewAvatarSelected = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      saveAvatar(e.target.files[0]);
     }
   };
 
-  const onSubmit = (formData: any) => {
+  const onSubmit = (formData: ProfileType) => {
     saveProfile(formData).then(() => {
       setEditMode(false);
     });
@@ -50,7 +49,7 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({ profile, status, updateSt
       </div>
       <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
       {editMode ? (
-        <ProfileDataFormReduxForm initialValues={profile} onSubmit={onSubmit} />
+        <ProfileDataFormReduxForm profile={profile} initialValues={profile} onSubmit={onSubmit} />
       ) : (
         <ProfileData
           profile={profile}
@@ -87,8 +86,7 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({ profile, isOwner, activat
       <div>
         <b>Contacts: </b>
         {Object.keys(profile.contacts).map((key) => {
-          //@ts-ignore
-          return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]} />;
+          return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]} />;
         })}
       </div>
       <div>
@@ -106,12 +104,12 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({ profile, isOwner, activat
   );
 };
 
-type ContactType = {
+type ContactsPropsType = {
   contactTitle: string,
   contactValue: string
 }
 
-const Contact: React.FC<ContactType> = ({ contactTitle, contactValue }) => {
+const Contact: React.FC<ContactsPropsType> = ({ contactTitle, contactValue }) => {
   return (
     <div className={style.contact}>
       <b>{contactTitle}</b>: {contactValue}

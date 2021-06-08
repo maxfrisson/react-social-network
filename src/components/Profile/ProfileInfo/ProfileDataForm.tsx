@@ -1,15 +1,16 @@
 import style from "./ProfileInfo.module.css";
 // import { ProfileType } from "../../../types/types"
-import { reduxForm } from "redux-form";
-import { createField, Input, Textarea } from "../../common/FormsControls/FormsControls";
+import { InjectedFormProps, reduxForm } from "redux-form";
+import { createField, GetStringKeys, Input, Textarea } from "../../common/FormsControls/FormsControls";
+import { ProfileType } from "../../../types/types";
 
-// type ProfileDataFormPropsType = {
-//   handleSubmit: any,
-//   profile: ProfileType,
-//   error: string,
-// }
+type PropsType = {
+  profile: ProfileType,
+}
 
-const ProfileDataForm = ({ handleSubmit, profile, error }: any) => {
+type ProfileTypeKeys = GetStringKeys<ProfileType>;
+
+const ProfileDataForm: React.FC<InjectedFormProps<ProfileType, PropsType> & PropsType> = ({ handleSubmit, profile, error }: any) => {
   debugger
   return (
     <form onSubmit={handleSubmit} >
@@ -21,7 +22,7 @@ const ProfileDataForm = ({ handleSubmit, profile, error }: any) => {
         <b>ID:</b> {profile.userId}
       </div>
       <div>
-        <b>Name:</b> {createField("Name", "fullName", [], Input)}
+        <b>Name:</b> {createField<ProfileTypeKeys>("Name", "fullName", [], Input)}
       </div>
       <div>
         <b>Contacts: </b>
@@ -32,21 +33,21 @@ const ProfileDataForm = ({ handleSubmit, profile, error }: any) => {
         })}
       </div>
       <div>
-        <b>About me:</b> {createField("About me", "aboutMe", [], Textarea)}
+        <b>About me:</b> {createField<ProfileTypeKeys>("About me", "aboutMe", [], Textarea)}
       </div>
       <div>
         <b>Looking for a job:</b>{" "}
-        {createField("", "lookingForAJob", [], Input, { type: "checkbox" })}
+        {createField<ProfileTypeKeys>("", "lookingForAJob", [], Input, { type: "checkbox" })}
       </div>
 
       <div>
         <b>My skills:</b> {profile.lookingForAJobDescription}
-        {createField("My skills", "lookingForAJobDescription", [], Textarea)}
+        {createField<ProfileTypeKeys>("My skills", "lookingForAJobDescription", [], Textarea)}
       </div>
     </form>
   );
 };
 
-const ProfileDataFormReduxForm = reduxForm({ form: "edit-profile" })(ProfileDataForm);
+const ProfileDataFormReduxForm = reduxForm<ProfileType, PropsType>({ form: "edit-profile" })(ProfileDataForm);
 
 export default ProfileDataFormReduxForm;
