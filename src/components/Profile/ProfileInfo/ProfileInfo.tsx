@@ -6,7 +6,7 @@ import style from "./ProfileInfo.module.css";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 type PropsType = {
-  profile: ProfileType,
+  profile: ProfileType | null,
   status: string, 
   updateStatus: (status: string) => void,
   isOwner: boolean, 

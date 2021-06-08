@@ -8,15 +8,11 @@ import Dialogs from "./Dialogs";
 
 const mapStateToProps = (state: AppStateType) => {
   return {
-    dialogsPage: state.dialogsPage
+    dialogsPage: state.dialogsPage,
   };
 };
-// const mapDispatchToProps = (dispatch: any) => {
-//   return {
-//     addMessage: (newMessageBody: string) => {
-//       dispatch(actions.AddMessage(newMessageBody));
-//     },
-//   };
-// };
 
-export default compose<React.ComponentType>(connect(mapStateToProps, {...actions}), withAuthRedirect)(Dialogs);
+export default compose<React.ComponentType>(
+  connect(mapStateToProps, { ...actions }),
+  withAuthRedirect
+)(Dialogs);

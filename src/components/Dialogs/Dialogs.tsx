@@ -7,7 +7,7 @@ import AddMessageForm from './Message/AddMessageForm/AddMessageForm';
 
 type OwnPropsType = {
   dialogsPage: InitialStateType,
-  addMessage: (messageText: string) => void,
+  addMessage: (messageText: string) => string,
   isAuth: boolean,
 }
 

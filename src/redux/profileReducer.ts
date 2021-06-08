@@ -14,7 +14,6 @@ let initialState = {
   ] as Array<PostType>,
   profile: null as ProfileType | null,
   status: "",
-  newPostText: ""
 };
 
 const profileReducer = (state = initialState, action: any):initialStateType => {
@@ -24,7 +23,6 @@ const profileReducer = (state = initialState, action: any):initialStateType => {
       let idPostGenerate = state.posts.length + 1;
       return {
         ...state,
-        newPostText: "",
         posts: [
           ...state.posts,
           {

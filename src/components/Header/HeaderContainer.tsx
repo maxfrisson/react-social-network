@@ -5,10 +5,10 @@ import { logout } from "../../redux/authReducer";
 import { AppStateType } from "../../redux/redux-store";
 
 type PropsType = {
-  isAuth: boolean,
-  login: string | null,
-  logout: () => void
-}
+  isAuth: boolean;
+  login: string | null;
+  logout: () => void;
+};
 
 class HeaderContainer extends React.Component<PropsType> {
   render() {
