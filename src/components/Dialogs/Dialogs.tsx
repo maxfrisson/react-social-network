@@ -4,10 +4,11 @@ import DialogsItem from "./DialogsItem/DialogsItem";
 import Message from "./Message/Message";
 import { InitialStateType } from '../../redux/dialogsReducer';
 import AddMessageForm from './Message/AddMessageForm/AddMessageForm';
+import { reset } from 'redux-form';
 
 type OwnPropsType = {
   dialogsPage: InitialStateType,
-  addMessage: (messageText: string) => string,
+  addMessage: (messageText: string) => void,
   isAuth: boolean,
 }
 
@@ -26,6 +27,7 @@ const Dialogs: React.FC<OwnPropsType> = (props) => {
 
   let addNewMessage = (value: NewMessageFormValuesType) => {
     props.addMessage(value.newMessageBody);
+    reset('dialogsAddMessageForm');
   }
 
   if (!props.isAuth) return <Redirect to="/login" />;

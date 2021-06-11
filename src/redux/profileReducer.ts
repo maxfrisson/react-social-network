@@ -16,7 +16,7 @@ let initialState = {
   status: "",
 };
 
-const profileReducer = (state = initialState, action: any):initialStateType => {
+const profileReducer = (state = initialState, action: any):InitialStateType => {
   switch (action.type) {
     case "RSN/PROFILE/ADD_POST":
       let post = action.newPostText;
@@ -109,6 +109,6 @@ export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch,
 
 export default profileReducer;
 
-export type initialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 type ActionsType = InferActionsTypes<typeof actions>;
 type ThunkType = BasicThunkType<ActionsType| FormAction>

@@ -44,7 +44,7 @@ const dialogsReducer = (state = initialState, action: ActionsType):InitialStateT
 };
 
 export const actions = {
-  AddMessage: (newMessageBody: string) => ({ type: "RSN/DIALOGS/ADD_MESSAGE", newMessageBody } as const)
+  addMessage: (newMessageBody: string) => ({ type: "RSN/DIALOGS/ADD_MESSAGE", newMessageBody } as const)
 };
 
 export default dialogsReducer;
