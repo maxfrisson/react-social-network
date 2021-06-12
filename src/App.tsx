@@ -5,12 +5,12 @@ import { compose } from "redux";
 import "./App.css";
 import Preloader from "./components/common/Preloader/Preloader";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginContainer from "./components/Login/LoginContainer";
+import {LoginPage} from "./components/Login/Login";
 import Music from "./components/Music/Music";
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import UsersContainer from "./components/Users/UsersContainer";
+import { UsersPage } from "./components/Users/UsersContainer";
 import { initializeApp } from "./redux/appReducer";
 import store, { AppStateType } from "./redux/redux-store";
 import { BrowserRouter } from "react-router-dom";
@@ -46,8 +46,8 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
             <Route exact path="/react-social-network" render={() => <Redirect to="/profile" />} />
             <Route path="/profile/:userId?" render={() => <SuspendedProfile />} />
             <Route path="/dialogs" render={() => <SuspendedDialogs />} />
-            <Route path="/users" render={() => <UsersContainer pageTitle={"Пользователи"} />} />
-            <Route path="/login" render={() => <LoginContainer />} />
+            <Route path="/users" render={() => <UsersPage pageTitle={"Пользователи"} />} />
+            <Route path="/login" render={() => <LoginPage />} />
             <Route path="/news" render={() => <News />} />
             <Route path="/music" render={() => <Music />} />
             <Route path="/settings" render={() => <Settings />} />
