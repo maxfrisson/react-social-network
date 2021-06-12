@@ -2,7 +2,7 @@ import styles from "./Users.module.css";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 import UsersSearchForm from "./UsersSearchForm";
-import { FilterType, requestUsers } from "../../redux/usersReducer";
+import { FilterType, requestUsers, follow, unfollow } from "../../redux/usersReducer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCurrentPage,
@@ -13,8 +13,12 @@ import {
   getUsersFilter,
 } from "../../redux/usersSelectors";
 import { useEffect } from "react";
+import { useHistory } from "react-router";
+import * as queryString from "querystring";
 
 type PropsType = {};
+
+type QueryParamsType = {term?: string, page?: string, friend?: string };
 
 export const Users: React.FC<PropsType> = (props) => {
   const users = useSelector(getUsers);
@@ -25,9 +29,43 @@ export const Users: React.FC<PropsType> = (props) => {
   const followingInProgress = useSelector(getFollowingInProgress);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(requestUsers(currentPage, pageSize, filter));
+    const parsed = queryString.parse(history.location.search.substr(1)) as QueryParamsType;
+
+    let actualPage = currentPage;
+    let actualFilter = filter;
+    if (!!parsed.page) actualPage = Number(parsed.page);
+    if (!!parsed.term) actualFilter = { ...actualFilter, term: parsed.term as string };
+    switch (parsed.friend) {
+      case "null":
+        actualFilter = { ...actualFilter, friend: null };
+        break;
+      case "true":
+        actualFilter = { ...actualFilter, friend: true };
+        break;
+      case "false":
+        actualFilter = { ...actualFilter, friend: false };
+        break;
+    }
+
+    dispatch(requestUsers(actualPage, pageSize, actualFilter));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const query: QueryParamsType = {};
+    if (!!filter.term) query.term = filter.term;
+    if (filter.friend !== null) query.friend = String(filter.friend);
+    if (currentPage !== 1) query.page = String(currentPage);
+
+    history.push({
+      pathname: "/users",
+      search: queryString.stringify(query),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onPageChanged = (pageNumber: number) => {
@@ -37,10 +75,10 @@ export const Users: React.FC<PropsType> = (props) => {
     dispatch(requestUsers(1, pageSize, filter));
   };
 
-  const follow = (userId: number) => {
+  const followUser = (userId: number) => {
     dispatch(follow(userId));
   };
-  const unfollow = (userId: number) => {
+  const unfollowUser = (userId: number) => {
     dispatch(unfollow(userId));
   };
 
@@ -61,8 +99,8 @@ export const Users: React.FC<PropsType> = (props) => {
             user={u}
             key={u.id}
             followingInProgress={followingInProgress}
-            unfollow={unfollow}
-            follow={follow}
+            unfollow={unfollowUser}
+            follow={followUser}
           />
         ))}
       </div>
