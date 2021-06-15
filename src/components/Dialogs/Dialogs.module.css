@@ -24,7 +24,7 @@
 }
 
 .dialog a.activeLink {
-  color: #fff;
+  color: #222;
 }
 
 .messages {
@@ -32,7 +32,7 @@
 }
 
 .message {
-  color: #fff;
+  color: #111;
 }
 
 textarea {

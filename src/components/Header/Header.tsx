@@ -24,8 +24,8 @@ export const Header: React.FC<MapPropsType> = (props) => {
     <Header className="header">
       <div className="logo" />
       <Row>
-        <Col span={18}>
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
+        <Col span={20}>
+          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[""]}>
             <Menu.Item key="1">
               <Link to="/profile">Profile</Link>
             </Menu.Item>
@@ -34,7 +34,7 @@ export const Header: React.FC<MapPropsType> = (props) => {
             </Menu.Item>
           </Menu>
         </Col>
-        <Col span={6}>
+        <Col span={4}>
           {isAuth ? (
             <div style={{color: "#f0f2f5", fontSize: "1.5rem"}}>
               <Avatar icon={<UserOutlined />} /> {login} - <Button onClick={logoutCallback}>Log out</Button>

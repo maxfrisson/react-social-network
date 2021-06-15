@@ -18,7 +18,7 @@ import * as queryString from "querystring";
 
 type PropsType = {};
 
-type QueryParamsType = {term?: string, page?: string, friend?: string };
+type QueryParamsType = { term?: string; page?: string; friend?: string };
 
 export const Users: React.FC<PropsType> = (props) => {
   const users = useSelector(getUsers);
@@ -66,7 +66,7 @@ export const Users: React.FC<PropsType> = (props) => {
       search: queryString.stringify(query),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [filter, currentPage]);
 
   const onPageChanged = (pageNumber: number) => {
     dispatch(requestUsers(pageNumber, pageSize, filter));
