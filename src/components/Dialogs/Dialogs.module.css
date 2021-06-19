@@ -3,7 +3,7 @@
 }
 .dialogsContent {
   display: grid;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 3fr 5fr;
 }
 .dialogsItems {
   padding: 10px;
