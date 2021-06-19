@@ -16,11 +16,9 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { withSuspense } from "./hoc/withSuspense";
 
-import { Layout, Menu, Breadcrumb } from "antd";
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from "@ant-design/icons";
+import { Layout } from "antd";
 import { Header } from "./components/Header/Header";
-const { SubMenu } = Menu;
-const { Content, Footer, Sider } = Layout;
+const { Content, Footer} = Layout;
 
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
